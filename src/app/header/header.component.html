@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="/home">ShoppinPal</a>
+ </span>
+
+<span class="spacer"></span>
+ <ul>
+  <li *ngIf="getUserIsAuthenticated()">
+    <a mat-button routerLink="/home" routerLinkActive="mat-accent">Welcome {{userEmail}} </a>
+  </li>
+  <li *ngIf="getUserIsAuthenticated()">
+    <a mat-button routerLink="/create" routerLinkActive="mat-accent"> New Category </a>
+  </li>
+  <li *ngIf="getUserIsAuthenticated()">
+    <a mat-button routerLink="/subcategory/create" routerLinkActive="mat-accent"> New Sub-Category </a>
+  </li>
+  <li  *ngIf="!getUserIsAuthenticated()">
+    <a mat-button routerLink="/login" routerLinkActive="mat-accent"> Login </a>
+  </li>
+
+  <li  *ngIf="!getUserIsAuthenticated()">
+    <a mat-button routerLink="/signup" routerLinkActive="mat-accent"> Sign Up </a>
+  </li>
+
+  <li  *ngIf="getUserIsAuthenticated()">
+    <button mat-button (click)="onLogout()" > Log Out </button>
+  </li>
+</ul>
+
+</mat-toolbar>

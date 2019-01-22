@@ -1,0 +1,46 @@
+<form (submit)="createSubCategory(postForm)" #postForm="ngForm" >
+<b> Create Sub-Category</b>
+  <mat-card>
+  <mat-form-field>
+    <input matInput type="text" name = "name" placeholder="Write name" ngModel required #name="ngModel">
+    <mat-error *ngIf="name.invalid"> Please write name</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea rows="4" matInput type="text" name = "description" placeholder="Write description" ngModel required #description="ngModel">  </textarea>
+    <mat-error *ngIf="description.invalid"> Please write description</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" name = "type" placeholder="Write type" ngModel required #type="ngModel">
+    <mat-error *ngIf="type.invalid"> Please write type</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput type="text" name = "parenttype" placeholder="Write parent type" ngModel required #parenttype="ngModel">
+      <mat-error *ngIf="parenttype.invalid"> Please write parent type</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select placeholder="Select category" name="categoryId"  ngModel required #categoryId="ngModel">
+        <mat-option *ngFor="let aCategory of categories" [value]="aCategory.id">
+          {{aCategory.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="categoryId.invalid">Select category</mat-error>
+    </mat-form-field>
+
+<br><br>
+
+<button mat-raised-button type="submit" color="accent"> Save post</button>
+  &nbsp;&nbsp;&nbsp;
+<button mat-raised-button type="reset" color="warn"> Reset</button>
+
+</mat-card>
+</form>
+
+
+<br>
+<br>
+<br>
+

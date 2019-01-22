@@ -1,0 +1,13 @@
+<mat-tab-group (selectedIndexChange)="indexChange($event)">
+  <mat-tab *ngFor="let cats of categories[0];  let index = index" label="{{cats.name}} - {{cats.id}}">
+    <ng-template matTabContent>
+        <div>
+            <div class="width33">{{cats.description}}</div>
+            <div class="width33">
+              <category-delete [categoryId]="cats.id" [category]= 'cats'></category-delete>
+            </div>
+          </div>
+       <app-sub-cats [subcats]="subCategories"></app-sub-cats>
+      </ng-template>
+    </mat-tab>
+</mat-tab-group>

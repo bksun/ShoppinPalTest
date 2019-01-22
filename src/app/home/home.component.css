@@ -1,0 +1,9 @@
+.example-input-label,
+.example-add-tab-button,
+.example-delete-tab-button {
+  margin: 8px;
+}
+
+.width33 {
+  width: 33%;
+}

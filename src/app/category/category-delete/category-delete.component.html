@@ -1,0 +1,2 @@
+<button mat-button *ngIf="categoryId && getUserIsAuthenticated()" (click)="deleteCategory()" class="deleteButton"> Delete category</button>
+<button mat-button *ngIf="category && getUserIsAuthenticated()" (click)="editCategory()" class="editButton"> Edit category</button>
