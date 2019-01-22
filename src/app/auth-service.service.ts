@@ -13,6 +13,7 @@ export class AuthServiceService {
   private AuthStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private userEmail: string = localStorage.getItem('userEmail') || '';
+  private apiUrl = 'https://bksun.herokuapp.com/api/';
 
   constructor( public http: HttpClient, private router: Router) { }
 
@@ -48,15 +49,17 @@ export class AuthServiceService {
 
   createUser( email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
-    this.http.post('https://bksun.herokuapp.com/api/Users', authData)
+    this.http.post(this.apiUrl + 'Users', authData)
     .subscribe(result => {
       alert('User created successfully');
-    });
+    },
+    (error) => this.handleError(error),
+  );
   }
 
   loginUser( email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
-    this.http.post<{id: string, userId: number}> ('https://bksun.herokuapp.com/api/Users/login', authData)
+    this.http.post<{id: string, userId: number}> (this.apiUrl + 'Users/login', authData)
     .subscribe(result => {
       if(!result || !result.id){
         alert("Please enter correct email and password.");
@@ -77,16 +80,27 @@ export class AuthServiceService {
           this.AuthStatusListener.next(true);
           this.router.navigate(['/home']);
         }
-    });
+    },
+    (error) => this.handleError(error),
+  );
   }
 
 
   getUserEmailService(userId: number) {
     this.http.get<{ email: string}>
-    ('https://bksun.herokuapp.com/api/users/' + userId + '?access_token=' + this.token)
+    (this.apiUrl + 'users/' + userId + '?access_token=' + this.token)
     .subscribe(( response) => {
       this.userEmail = response.email;
       localStorage.setItem('userEmail', this.userEmail);
-    });
+    },
+    (error) => this.handleError(error),
+  );
+  }
+  handleError(error: any) {
+    if (error.error.error.message) {
+      let errorMsg: string = 'Error: ';
+      errorMsg += error.error.error.message;
+      alert(errorMsg)
+    };
   }
 }
